@@ -3,7 +3,11 @@
  * @author yatusabe
  */
 package crudmongo;
-
+/*
+IMPORTANTE RECORDAR:
+La tabla en MySQL se convierte en una colección en Mongo
+La fila se convierte en un documento
+La columna se convierte en un campo*/
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
