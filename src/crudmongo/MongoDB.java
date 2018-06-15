@@ -12,7 +12,7 @@ La columna se convierte en un campo*/
 
 import com.mongodb.*;
 
-public class MongoExample {
+public class MongoDB {
     public static void main(String[] args) {
         
         //Se ejecuta en el localhost en el puerto 27017
@@ -40,7 +40,19 @@ public class MongoExample {
         document.put("Autor/a", "Agatha Christie");
         //La insertamos en la coleccion adequada
         collection.insert(document);
-
+        
+        /*Comprovamos que se haya creado*/
+        //instanciamos el mismo objeto que antes para poder hacer consultas
+        BasicDBObject searchQuery1 = new BasicDBObject();
+        //Le decimos que es lo que queremos buscar
+        searchQuery1.put("Título", "Hercule Poirot");
+        //Busca
+        DBCursor cursor1 = collection.find(searchQuery1);
+        //Recorremos e imprimimnos para ver
+        while (cursor1.hasNext()) {
+            System.out.println(cursor1.next());
+        }
+        
         /*Update data*///-->cambiar/actualizar info de la base de datos*/
         //instanciamos un objeto tipo "BasicDBObject" para decirle qué información queremos cambiar 
         BasicDBObject query = new BasicDBObject();
@@ -55,7 +67,8 @@ public class MongoExample {
         updateObject.put("$set", newDocument);
         //Cambiamos "newDocument" por "query"
         collection.update(query, updateObject);
-
+        System.out.println("Hacemos update: cambiamos el título: Hercule Poirot por Asesinato en el orient express ");
+        //Comprovamos que se ha efectuado el cambio
         /*Read data*/
         //instanciamos el mismo objeto que antes para poder hacer consultas
         BasicDBObject searchQuery = new BasicDBObject();
@@ -75,6 +88,20 @@ public class MongoExample {
         deleteQuery.put("Título", "Asesinato en el orient express");
         //eliminamos
         collection.remove(deleteQuery);
+        
+        /*Comprovamos que se haya eliminado*/
+        //instanciamos el mismo objeto que antes para poder hacer consultas
+        BasicDBObject searchQuery2 = new BasicDBObject();
+        //Le decimos que es lo que queremos buscar
+        searchQuery2.put("Título", "Hercule Poirot");
+        //Busca
+        DBCursor cursor2 = collection.find(searchQuery2);
+        //Recorremos e imprimimnos para ver
+        if (cursor2.hasNext()) {
+            System.out.println(cursor2.next());
+        }else{
+            System.out.println("Dato no exsitente");
+        }
         //database.dropDatabase();
         //FIN
     }
