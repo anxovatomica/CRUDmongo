@@ -3,17 +3,14 @@
  * @author yatusabe
  */
 package crudmongo;
+
 /*
-IMPORTANTE RECORDAR:
+IMPORTANTE:
 La tabla en MySQL se convierte en una colección en Mongo
 La fila se convierte en un documento
 La columna se convierte en un campo*/
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.MongoClient;
+import com.mongodb.*;
 
 public class MongoExample {
     public static void main(String[] args) {
@@ -70,7 +67,7 @@ public class MongoExample {
         while (cursor.hasNext()) {
             System.out.println(cursor.next());
         }
-
+        
         /*Delete data*/
         //Instanciamos 
         BasicDBObject deleteQuery = new BasicDBObject();
